@@ -118,6 +118,7 @@ public class GeometryPrecisionReducer
   public Geometry reduce(Geometry geom)
   {
     Geometry reducePW = reducePointwise(geom);
+    reducePW.setUserData(geom.getUserData());
     if (isPointwise)
     	return reducePW;
     

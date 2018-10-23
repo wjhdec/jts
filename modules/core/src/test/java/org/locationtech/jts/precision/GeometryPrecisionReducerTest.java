@@ -136,6 +136,14 @@ public class GeometryPrecisionReducerTest
     assertEqualsExactAndHasSameFactory(gReduce, g2);
 	}
 
+  public void testWithUserData() throws Exception {
+    Geometry g = reader.read("POLYGON (( 0 0, 0 1.4, 1.4 1.4, 1.4 0, 0 0 ))");
+    g.setUserData("testdata");
+    Geometry gReduce = reducer.reduce(g);
+    Geometry gReduce2 = GeometryPrecisionReducer.reducePointwise(g, pmFixed1);
+    assertEquals(gReduce.getUserData(), "testdata");
+    assertEquals(gReduce2.getUserData(), "testdata");
+  }
   private void assertEqualsExactAndHasSameFactory(Geometry a, Geometry b)
   {
     assertTrue(a.equalsExact(b));
